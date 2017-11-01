@@ -1,0 +1,111 @@
+上传GIT
+git config --global user.name "Your Name"
+git config --global user.email "email@example.com"
+1.进入项目 git init
+2.添加到本地仓库 git add .(或指定文件)
+3.提交 git commit -m '此次修改注释'
+
+//git status 时刻掌握仓库当前状态，了解哪些文件做了修改
+
+//git diff 查看具体做了何种修改
+
+git status、git diff 在 git commit 之前查看
+
+git log(git log --pretty=oneline) 查看文件修改的历史记录(从最近到最远)
+
+git reset --hard HEAD^(HEAD代表当前版本,HEAD^代表当前版本的上个版本)回到上个版本
+git reset --hard 版本号 回到指定版本号的版本
+
+git reflog 来查看使用的每条指令
+
+工作区:在电脑上能看到的目录，如文件夹就是一个工作区
+
+工作区中内容add后进入版本库的stage暂存区,从暂存区commit后加入到当前分支master,即所有需要提交的文件统统放到暂存区,而后一次性提交暂存区内容,
+当暂存区内容commit后,暂存区就没有任何内容了
+
+Git跟踪并管理的是修改，而非文件。
+
+git diff HEAD -- readme.txt命令可以查看工作区和版本库里面最新版本的区别
+注:git commit只会提交暂存区中的修改,未add的修改则不会提交
+
+git checkout -- 文件名  直接丢弃工作区的修改(版本库版本放至工作区)
+
+git reset HEAD file可以把暂存区的修改撤销掉,重新放回工作区
+
+git rm 文件名  删除文件
+
+4.本地仓库关联到github上 git remote add origin 地址
+5.git pull origin master
+6.上传 git push -u origin master
+
+
+Vue
+
+建立项目：
+npm install -g vue
+
+npm install -g vue-cli
+
+vue init webpack 项目名称
+
+（项目下）
+npm install
+
+npm run dev
+
+npm install vue-router --save
+
+npm install vue-resource
+
+引入组件：
+import 组件名称 from './components/组件文件'
+components: {组件名称}
+push:插到最后
+unshift:插到第一个
+修改Vue.set(要改的数组，要改的项数，要改成啥)
+标签属性绑定：v-bind:属性名=属性值
+v-if会从文档流删除
+v-show通过display
+
+
+
+
+
+组件：
+根组件：在入口文件（main.js）通过实例化Vue对象中的render方法引入根组件
+而且只有一个实例化对象Vue
+import 子组件 from 子组件路径
+组件名在html标签里转小写中线格式，属性也采用该格式，大小写不敏感
+
+动态组件
+:is="变量"，变量:要引入的组件名
+
+父子组件通信:父-->子 props属性 	子-->父 event事件(emit触发，on监听)
+props:['父组件传过来的属性名']，在作为{{}}中变量时改驼峰
+@子组件事件名="父组件事件"
+子组件返回以参数方式传递
+父组件引入子组件，需要在子组件添加内容的话，在子组件用<slot></slot>引用
+父组件可用slot属性规定插在什么哪个slot里
+
+公共模板(layout.vue)放在src --> components --> layout.vue
+分页面  src --> pages --> 分页面
+
+AJAX
+
+npm install vue-resource
+
+
+const apiServer = jsonServer.create()
+
+const apiRouter = jsonServer.router('db.json')
+
+const middlewares = jsonServer.defaults()
+
+
+apiServer.use(middlewares)
+
+apiServer.use(apiRouter)
+
+apiServer.listen(3000, () => {
+  console.log('JSON Server is running')
+})
