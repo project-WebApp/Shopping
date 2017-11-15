@@ -2,10 +2,30 @@
 // (runtime-only or standalone) has been set in webpack.base.conf with an alias.
 import Vue from 'vue'
 import App from './App'
-import router from './router'
+import VRouter from 'vue-router'
+import Vuex from 'vuex'
+import VResource from 'vue-resource'
 
-Vue.config.productionTip = false
 
+
+Vue.use(VRouter)
+Vue.use(Vuex)
+Vue.use(VResource)
+let store = new Vuex.Store({
+  state: {
+
+  },
+  mutations: {
+
+  },
+  actions: {
+
+  }
+})
+let router = new VRouter({
+  mode: 'history',
+  routes: []
+})
 /* eslint-disable no-new */
 new Vue({
   el: '#app',

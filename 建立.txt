@@ -77,18 +77,82 @@ v-show通过display
 import 子组件 from 子组件路径
 组件名在html标签里转小写中线格式，属性也采用该格式，大小写不敏感
 
-动态组件
-:is="变量"，变量:要引入的组件名
 
-父子组件通信:父-->子 props属性 	子-->父 event事件(emit触发，on监听)
-props:['父组件传过来的属性名']，在作为{{}}中变量时改驼峰
-@子组件事件名="父组件事件"
-子组件返回以参数方式传递
-父组件引入子组件，需要在子组件添加内容的话，在子组件用<slot></slot>引用
-父组件可用slot属性规定插在什么哪个slot里
+
+父子组件通信：
+
+父子组件通信:父-->子 props属性
+
+父组件中自定义属性
+
+在子组件声明props:[父组件中自定义属性名](-小写)，在作为{{}}中变量时改驼峰
+
+子-->父 event事件(emit触发，on监听)
+
+@子组件事件(click等)="自定义事件" ====>  methods:{该自定义事件(){ this.$emit(给父组件的规定的自定义事件, 子组件要告诉父组件的东西) }}
+
+父组件中 @子组件给规定的自定义事件=父组件自定义事件
+
+methods:{父组件自定义事件(接收子组件传过来的东西的变量){}}
+
+在父组件中的子组件里需要添加html模板内容时，在子组件中用<slot></slot>容器接收
+
+给子组件中的slot一个name属性，在父组件模板内容一个slot属性，两者一致时即为向指定插槽中插入内容
+
+动态组件
+:is="变量"，变量:要引入的组件名，在data中声明
+
+
+
+
+过渡效果
+
+<transition name="动画效果名称"></transition>（默认先新后旧，mode="in-out"）
+
+CSS过渡：
+            enter                                      leave
+name-enter  ----->  name-enter-active     name-leave  ------>  name-leave-active
+   无       ----->          有                有      ------>         无
+
+name-enter-active,name-leave-active	过渡中transition:all .5s ease-out;
+name-enter,name-leave-active	最终状态的css
+
+transform:translateY(500px);
+
+接受过渡v-if,v-show
+过渡元素标签一样时必须加key属性才可正常执行动画
+
+JS过渡
+
+自定义指令
+directives:{
+  指令名(使用时v-指令名):(el, binding) => {
+    el.style.color = binding.value
+  }
+}
+当写在当前组件时只能在当前组件使用，若写在new Vue()实例化时，整个项目可用
+
+<router-link></router-link>
+
+main.js中配置路由
+import VRouter from 'vue-router'
+import VueResource from 'vue-resource'
+import Vuex from 'vuex'
+
+Vue.use(VRouter)
+Vue.use(VueResource)
+Vue.use(Vuex)
+
+app.vue 中<router-view></router-view>接收路由内容
+
 
 公共模板(layout.vue)放在src --> components --> layout.vue
 分页面  src --> pages --> 分页面
+
+插件
+
+Vue.use(插件变量名)
+
 
 AJAX
 
