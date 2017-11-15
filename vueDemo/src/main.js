@@ -3,11 +3,13 @@
 import Vue from 'vue'
 import App from './App'
 import VRouter from 'vue-router'
+import VueResource from 'vue-resource'
 import Vuex from 'vuex'
 import Apple from './components/apple'
 import Banana from './components/banana'
 import redApple from './components/redApple'
 Vue.use(VRouter)
+Vue.use(VueResource)
 Vue.use(Vuex)
 let store = new Vuex.Store({
   state: {

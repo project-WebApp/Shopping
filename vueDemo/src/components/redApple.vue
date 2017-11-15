@@ -1,6 +1,6 @@
 <template>
   <div class="hello">
-    <h1>{{ msg }}</h1>
+    <h1>{{ reserve }}</h1>
   </div>
 </template>
 
@@ -9,6 +9,11 @@ export default {
   data () {
     return {
       msg: 'I\'m a RedApple'
+    }
+  },
+  computed: {
+    reserve:function(){
+      return this.msg.split('').reverse().join('')
     }
   },
   methods: {

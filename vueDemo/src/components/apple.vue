@@ -5,11 +5,18 @@
     <button @click="addOne">add one</button>
     <button @click="minusOne">minus one</button>
     <router-view></router-view>
+    <keep-alive>
+      <Tab></Tab>
+    </keep-alive>
   </div>
 </template>
 
 <script>
+import Tab from './Tab'
 export default {
+  components:{
+    Tab
+  },
   data () {
     return {
       msg: 'I\'m a Apple',
