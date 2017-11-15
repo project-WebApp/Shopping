@@ -84,6 +84,7 @@ export default {
               this.tabList[index].contendList.push(JSON.parse(res.bodyText).LIST[i]);
               this.tabList[index].first = false;
             }
+            console.log(this.tabList[index].contendList);
           }
         }
       })
