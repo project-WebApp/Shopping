@@ -18,6 +18,7 @@ export default {
   data () {
     return {
       currentIndex:0,
+      tabIndex:0,
       firsetTab:true,
       tabList:[
       {
@@ -72,30 +73,42 @@ export default {
     }
   },
   beforeCreate () {
-    for(let index = 0; index < 8; index ++){
-      this.$http.jsonp('http://youxue.xdf.cn/api/getcatlist.php?cat_id='+Number(index+1)+'&callback=callback').then(function(res){
-        let len = JSON.parse(res.bodyText).LIST.length;
-        if(len < 6){
-          this.tabList[index].visible = false;
-        }else{
-          if(this.firsetTab){
-            this.firsetTab = false;
-            for(let i = 0; i < 6; i ++){
-              this.tabList[index].contendList.push(JSON.parse(res.bodyText).LIST[i]);
-              this.tabList[index].first = false;
+
+  },
+  created () {
+    let _this = this;
+    let index = 0;
+    function Fn(){
+      if(index >= _this.tabList.length){
+        return ;
+      }else{
+        _this.$http.jsonp('http://youxue.xdf.cn/api/getcatlist.php?&callback=callback',{params: {cat_id:index+1}}).then((res) => {
+          let len = JSON.parse(res.bodyText).LIST.length;
+          if(len < 6){
+            _this.tabList[index].visible = false;
+          }else{
+            if(_this.firsetTab){
+              console.log(index);
+              _this.firsetTab = false;
+              for(let i = 0; i < 6; i ++){
+                _this.tabList[index].contendList.push(JSON.parse(res.bodyText).LIST[i]);
+                _this.tabList[index].first = false;
+              }
             }
-            console.log(this.tabList[index].contendList);
           }
-        }
-      })
+          index ++;
+          Fn();
+        })
+      }
     }
+    Fn();
   },
   methods:{
     toggle (index) {
       this.currentIndex = index;
       if(this.tabList[index].first){
         this.tabList[index].first = false;
-        this.$http.jsonp('http://youxue.xdf.cn/api/getcatlist.php?cat_id='+Number(index+1)+'&callback=callback').then(function(res){
+        this.$http.jsonp('http://youxue.xdf.cn/api/getcatlist.php?cat_id='+Number(index+1)+'&callback=callback').then((res) => {
           let len = JSON.parse(res.bodyText).LIST.length;
           if(this.tabList[index].contendList == '' && len >= 6){
             for(let i = 0; i < 6; i ++){
